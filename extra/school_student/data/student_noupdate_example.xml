@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="student_noupdate_eg" model="school_student.school_student">
+        <field name="name">Student No Update</field>
+        <field name="total_fees">6050</field>
+        <field name="school_id" ref="school.school_6" />
+    </record>
+
+</odoo>

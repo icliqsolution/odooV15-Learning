@@ -1,0 +1,14 @@
+<odoo>
+<data>
+    <record model="ir.ui.view" id="school_student_extend_form">
+      <field name="name">school.student.extend.form</field>
+      <field name="model">school_student.school_student</field>
+      <field name="inherit_id" ref="school_student.school_student_form"/>
+      <field name="arch" type="xml">
+      <field name="name" position="after">
+      <field name="student_full_name" />
+      </field>
+        </field>
+    </record>
+</data>
+</odoo>

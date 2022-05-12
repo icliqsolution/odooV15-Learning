@@ -1,0 +1,5 @@
+id,name,school_id:id,total_fees,hobby_list:id
+student_1,"Sunny Student CSV",school_1,6000,
+student_2,"Ramu",school_1,5000,
+student_3,Ramu Chacha,school_1,3000,
+student_4,shitaraman,school_1,4000,"hobby_1,hobby_3"

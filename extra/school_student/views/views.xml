@@ -1,0 +1,148 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+     <record model="ir.ui.view" id="school_student_list">
+      <field name="name">school.student.list</field>
+      <field name="model">school_student.school_student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id" />
+          <field name="roll_number" />
+          <field name="create_uid" />
+          <!-- <field name="create_date" /> -->
+          <field name="name"/>
+          <field name="school_id"/>
+          <field name="is_virtual_school" />
+        </tree>
+      </field>
+    </record> 
+    
+    <record model="ir.ui.view" id="school_student_form">
+      <field name="name">school.student.form</field>
+      <field name="model">school_student.school_student</field>
+      <field name="arch" type="xml">
+        <form>
+        <button name="custom_button_method" string="Custom Button Click Me!" type="object" />
+        <button name="wiz_open" string="Wizard open using custom method" type="object" />
+        <button name="school_student.student_fees_update_action" string="Wizard open using action" type="action" />
+        <group>
+            <group>
+              <field name="name"/>
+              <field name="roll_number"/>
+              <field name="currency_id" />
+              <field name="parent_name" />
+              <field name="school_id" string="school" />
+              <!-- options="{'no_ceate_edit':True, 'no_create':True, 'no_open':True}"
+              domain="[('is_virtual_class','=', True),('school_type','!=',False)]"  -->
+              <field name="school_address" />
+              <field name="hobby_list"/>
+              <field name="student_fees" />
+              <field name="total_fees" widget="monetary"/>
+              <field name="ref_id" string="Ref Field" />
+              <field name="active"/>
+              <field name="bdate" attrs = "{'invisible':[('total_fees','=',0)], 'readonly':[('total_fees','=',1)],
+                            'required':[('total_fees','=',2)]}"/>
+              <field name="student_age" />
+              <field name="street" />
+              <field name="street_one" />
+              <field name="city" />
+              <field name="state" />
+              <field name="country" />
+              <field name="Zip_code" />
+            </group>
+          </group>
+            
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="hobby_list">
+      <field name="name">hobby list</field>
+      <field name="model">hobby</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    
+
+     <record model="ir.ui.view" id="school_extend_form">
+      <field name="name">school.extend.form</field>
+      <field name="model">school.profile</field>
+      <field name="inherit_id" ref="school.school_form_view"/>
+      <field name="arch" type="xml">
+        <field name="school_description" position="after">
+        <field name="school_number"  string="School Number"/>
+          <field name="school_list" string="students" >
+          
+            <tree>
+              <field name="name" editable="top"/>
+            </tree>
+            <form>
+              <group>
+                <field name="name" />                
+              </group>
+            </form>
+          </field>
+        </field>
+      </field>
+    </record>
+
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="school_student.action_window">
+      <field name="name">school_student window</field>
+      <field name="res_model">school_student.school_student</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="school_student.action_server">
+      <field name="name">school_student server</field>
+      <field name="model_id" ref="model_school_student_school_student"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="school_student" id="school_student.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="school_student.menu_1" parent="school_student.menu_root"/>
+    <menuitem name="Menu 2" id="school_student.menu_2" parent="school_student.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="school_student.menu_1_list" parent="school_student.menu_1"
+              action="school_student.action_window"/>
+    <menuitem name="Server to list" id="school_student" parent="school_student.menu_2"
+              action="school_student.action_server"/>
+    <menuitem name="Hobbies" id="student_hobby_list" parent="school_student.menu_2" action="school_student.action_server"/>          
+
+    <menuitem name="Student Profile" id="menu_of_student_profile" />
+    <!-- parent menu in odoo -->
+
+    <menuitem name="Menu1 Student"
+              id="root_menu_to_menu2"
+              parent="menu_of_student_profile"
+              action="school_student.action_window"
+        />
+
+  </data>
+</odoo>
